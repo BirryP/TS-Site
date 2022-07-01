@@ -3,7 +3,7 @@ import { HeaderContext, HeaderContextType } from "./context/HeaderContext"
 import TextBox from "./TextBox"
 
 const Header = () => {
-  const { date, setDate, isRed } = useContext(
+  const { date, setDate, colorIndex } = useContext(
     HeaderContext
   ) as HeaderContextType
 
@@ -16,7 +16,7 @@ const Header = () => {
 
   return (
     <>
-      <TextBox text={isRed ? "Hello There" : "How Are You?"} left="15%" />
+      <TextBox text={colorIndex % 2 == 0 ? "Hello There" : "How Are You?"} left="15%" />
       <TextBox
         text={
           date.getHours().toString().padStart(2, "0") +

@@ -4,15 +4,15 @@ import HeaderContainer from "./HeaderContainer"
 import { HeaderContext } from "./context/HeaderContext"
 
 const HeaderManager = () => {
-  const [date, setDate] = useState<Date>(new Date())
-  const [isRed, setIsRed] = useState<boolean>(true)
+  const [date, setDate] = useState<Date>(new Date());
+  const [colorIndex, setColorIndex] = useState<number>(0);
 
-  const hadleIsRedChange = () => {
-    setIsRed((prev) => !prev)
-  }
+  const handleColorIndexChange = (newColorIndex: number) => {
+    setColorIndex(newColorIndex);
+  };
 
   return (
-    <HeaderContext.Provider value={{ date, setDate, isRed, hadleIsRedChange }}>
+    <HeaderContext.Provider value={{ date, setDate, colorIndex, handleColorIndexChange }}>
       <HeaderContainer>
         <Header />
       </HeaderContainer>

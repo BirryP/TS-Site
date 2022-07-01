@@ -1,5 +1,6 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { HeaderContext, HeaderContextType } from "./context/HeaderContext"
+import { Colors } from "../Constants/colors"
 import type CSS from "csstype"
 
 const TitleStyle: CSS.Properties = {
@@ -20,12 +21,23 @@ type TextBoxProps = {
 }
 
 const TextBox = ({ text, left }: TextBoxProps) => {
-  const { isRed } = useContext(HeaderContext) as HeaderContextType
+  const { colorIndex } = useContext(HeaderContext) as HeaderContextType
+  const [textBoxColorIndex, setTextBoxColorIndex] = useState<number>(Math.round(Colors.length / 2))
+
+  useEffect(() => {
+    const newTextBoxColorIndex = colorIndex + Math.round(Colors.length / 2);
+    if (newTextBoxColorIndex > Colors.length - 1) {
+      setTextBoxColorIndex(newTextBoxColorIndex - Colors.length);
+    } else {
+      setTextBoxColorIndex(newTextBoxColorIndex);
+    }
+  }, [colorIndex])
+
   return (
     <div
-      style={{ ...TitleStyle, left, backgroundColor: isRed ? "blue" : "red" }}
+      style={{ ...TitleStyle, left, backgroundColor: Colors[textBoxColorIndex] }}
     >
-      <span>{text}</span>
+      <span style={{color: Colors[colorIndex]}}>{text}</span>
     </div>
   )
 }
